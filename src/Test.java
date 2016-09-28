@@ -2,6 +2,8 @@ class Test
 {
     public static void main(String[] args)
     {
-    System.out.println("Hello. You've managed to run a program!");
+        String workingdir = System.getProperty("user.dir");
+        String filepath = workingdir.substring(0,workingdir.length()-4);
+        System.out.println(filepath);
     }
 }
