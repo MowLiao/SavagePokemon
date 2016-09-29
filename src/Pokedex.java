@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 public class Pokedex extends ArrayList<Pokemon>
 {
@@ -25,10 +26,13 @@ public class Pokedex extends ArrayList<Pokemon>
 
         try
         {
-            br = new BufferedReader( new FileReader(statsfile))
-            while ((line = br.readline()) != null)
+            br = new BufferedReader( new FileReader(statsfile));
+            line = br.readLine();
+            line = br.readLine();
+            while ((line = br.readLine()) != null)
             {
-
+                System.out.println(line);
+                this.add(csvStringToPokemon(line));
             }
         }
         catch (Exception e)
@@ -50,9 +54,17 @@ public class Pokedex extends ArrayList<Pokemon>
         
     }
 
-    private Pokemon dataConversion()
+    private Pokemon csvStringToPokemon(String stringIn)
     {
-        String[] pokemonArray = line.split(",");
+        String[] stringArray = stringIn.split(",");
+        ArrayList<String> statsArray = new ArrayList<String>(stringArray.length);
+        for (int i=0; i<stringArray.length; i++)
+        {
+            statsArray.add(stringArray[i]);
+        }
+        Pokemon newPokemon = new Pokemon(statsArray);
+        System.out.println(newPokemon.getName());
+        return newPokemon;
     }
 
 
@@ -62,7 +74,8 @@ public class Pokedex extends ArrayList<Pokemon>
 
     public static void main(String[] args)
     {
-        Pokemon test = new Pokemon();
+        Pokedex test = new Pokedex();
+        //System.out.println(test.get(0).getName());
     }
 
 }
