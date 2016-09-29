@@ -1,0 +1,47 @@
+
+            this.ndex = Integer.parseInt(listIn[0]);
+            this.pokemon = listIn[1];
+            this.primaryType = new Type(true, listIn[2]);
+            this.secondaryType = new Type(false, listIn[3]);
+            this.evolutionaryStage = Integer.parseInt(listIn[4]);
+            this.pace = Integer.parseInt(listIn[5]);
+
+            this.agility = new Attribute(Integer.parseInt(listIn[6]), 0);
+            this.smarts = new Attribute(Integer.parseInt(listIn[7]), 0);
+            this.strength = new Attribute(Integer.parseInt(listIn[8]), 0);
+            this.spirit = new Attribute(Integer.parseInt(listIn[9]), 0);
+            this.vigor = new Attribute(Integer.parseInt(listIn[10]), 0);
+
+            this.weak = new PhysicalAttribute(convertIntToBool(Integer.parseInt(listIn[11])));
+            this.strong = new PhysicalAttribute(convertIntToBool(Integer.parseInt(listIn[12])));
+            this.small = new PhysicalAttribute(convertIntToBool(Integer.parseInt(listIn[13])));
+            this.large = new PhysicalAttribute(convertIntToBool(Integer.parseInt(listIn[14])));
+
+            this.intimidation = new Skill(Integer.parseInt(listIn[18]));
+            this.notice = new Skill(Integer.parseInt(listIn[19]));
+            this.stealth = new Skill(Integer.parseInt(listIn[20]));
+            this.survival = new Skill(Integer.parseInt(listIn[21]));
+            this.swimming = new Skill(Integer.parseInt(listIn[22]));
+            this.fighting = new Skill(Integer.parseInt(listIn[23]));
+            this.spAttack = new Skill(Integer.parseInt(listIn[24]));
+            this.climbing = new Skill(Integer.parseInt(listIn[25]));
+            this.healing = new Skill(Integer.parseInt(listIn[26]));
+            this.taunting = new Skill(Integer.parseInt(listIn[27]));
+            this.tracking = new Skill(Integer.parseInt(listIn[28]));
+            this.charm = new Skill(Integer.parseInt(listIn[29]));
+
+            this.inArctic = new Location(convertIntToBool(Integer.parseInt(listIn[36])));
+            this.inCaves = new Location(convertIntToBool(Integer.parseInt(listIn[37])));
+            this.inDesert = new Location(convertIntToBool(Integer.parseInt(listIn[38])));
+            this.inFreshWater = new Location(convertIntToBool(Integer.parseInt(listIn[39])));
+            this.inMountains = new Location(convertIntToBool(Integer.parseInt(listIn[40])));
+            this.inSea = new Location(convertIntToBool(Integer.parseInt(listIn[41])));
+            this.inPlains = new Location(convertIntToBool(Integer.parseInt(listIn[42])));
+            this.inUrban = new Location(convertIntToBool(Integer.parseInt(listIn[43])));
+            this.inVolcanic = new Location(convertIntToBool(Integer.parseInt(listIn[44])));
+            this.inWoods = new Location(convertIntToBool(Integer.parseInt(listIn[45])));
+
+            this.rareness = Integer.parseInt(listIn[46]);
+            this.maxGroupSize = Integer.parseInt(listIn[47]);
+            this.aggro = Integer.parseInt(listIn[48]);
+            this.pokemonFamily = listIn[49];
