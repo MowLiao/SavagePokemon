@@ -141,7 +141,7 @@ public class Pokemon
 
 
     /****************************************
-        GETTERS AND SETTERS
+        GETTERS
     ****************************************/
 
     public String getName()
@@ -149,7 +149,7 @@ public class Pokemon
         return this.pokemonName;
     }
 
-    public Integer getPokedexNumbr()
+    public Integer getPokedexNumber()
     {
         return this.ndex;
     }

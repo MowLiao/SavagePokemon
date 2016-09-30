@@ -31,7 +31,6 @@ public class Pokedex extends ArrayList<Pokemon>
             line = br.readLine();
             while ((line = br.readLine()) != null)
             {
-                System.out.println(line);
                 this.add(csvStringToPokemon(line));
             }
         }
@@ -63,7 +62,7 @@ public class Pokedex extends ArrayList<Pokemon>
             statsArray.add(stringArray[i]);
         }
         Pokemon newPokemon = new Pokemon(statsArray);
-        System.out.println(newPokemon.getName());
+        System.out.println(newPokemon.getPokedexNumber() + " " + newPokemon.getName());
         return newPokemon;
     }
 
