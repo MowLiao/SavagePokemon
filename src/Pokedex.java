@@ -11,13 +11,6 @@ public class Pokedex extends ArrayList<Pokemon>
         readFile();
     }
 
-    /*
-    private add(Pokemon pokemon)
-    {
-        // Add method for pokemon into pokedex
-    }
-    */
-
     private void readFile()
     {
         String statsfile = this.workingdir.substring(0,this.workingdir.length()-4).concat("\\res\\stats.csv");

@@ -3,7 +3,14 @@ import javax.swing.*;
 
 public class GenerationTab extends JPanel
 {
-    private JButton btn;
+    private ArrayList<JList> generatedPokemonList = new ArrayList<JList>();
+    private ArrayList<JList> specialSkillsList = new ArrayList<JList>();
+    private ArrayList<JList> specialSkillsList = new ArrayList<JList>();
+    private JScrollPane generatedPokemonListView;
+    private DefaultListModel<String> generatedPokemonListModel;
+
+    private ArrayList<JList> regionList = new ArrayList<JList>();
+    private String[] pokedexList;
 
     public GenerationTab()
     {
@@ -13,13 +20,12 @@ public class GenerationTab extends JPanel
 
     private void createComponents()
     {
-        this.btn = new JButton("Click me!");
+        generatedList
     }
 
     private void setLayout()
     {
         BoxLayout mainLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         this.setLayout(mainLayout);
-        this.add(this.btn);
     }
 }
