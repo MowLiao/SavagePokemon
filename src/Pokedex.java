@@ -27,7 +27,7 @@ public class Pokedex extends ArrayList<Pokemon>
                 this.add(csvStringToPokemon(line));
             }
         }
-        catch (Exception e)
+        catch(Exception e)
         {
             e.printStackTrace();
         }
@@ -57,6 +57,16 @@ public class Pokedex extends ArrayList<Pokemon>
         Pokemon newPokemon = new Pokemon(statsArray);
         System.out.println(newPokemon.getPokedexNumber() + " " + newPokemon.getName());
         return newPokemon;
+    }
+
+    public String[] getPokemon()
+    {
+        ArrayList<String> allPokemon = new ArrayList<String>(this.size());
+        for (int i=0; i<this.size(); i++)
+        {
+            allPokemon.add(this.get(i).getName());
+        }
+        return allPokemon.toArray();
     }
 
 
