@@ -3,7 +3,7 @@ import java.util.*;
 
 /*
 Todo:
-Program in hits
+Program in evasion stat, for each 2 sizes, -1 evasion
 
 */
 
