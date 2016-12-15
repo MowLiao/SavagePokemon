@@ -1,6 +1,12 @@
 import java.io.*;
 import java.util.*;
 
+/*
+Todo:
+Program in hits
+
+*/
+
 public class Pokemon
 {    
     private String workingdir = System.getProperty("user.dir");
@@ -62,7 +68,23 @@ public class Pokemon
 
     public void create(ArrayList<String> listIn)
     {
-        this.ndex = Integer.parseInt(listIn.get(0).substring(1).replaceFirst("^0+(?!$)", ""));
+        this.charisma.setDice(0);
+        for (int i=0; i<4; i++)
+        {
+            this.edges.add(listIn.get(30+i));
+        }
+
+        for (int j=0; j<2; j++)
+        {
+            this.hindrances.add(listIn.get(34+j));
+        }
+
+        this.weak = new PhysicalAttribute(Integer.parseInt(listIn.get(11)));
+        this.strong = new PhysicalAttribute(Integer.parseInt(listIn.get(12)));
+        this.small = new PhysicalAttribute(Integer.parseInt(listIn.get(13)));
+        this.large = new PhysicalAttribute(Integer.parseInt(listIn.get(14)));
+
+        this.ndex = Integer.parseInt(listIn.get(0).substring(1).replaceFirst("^0+(?!$)", ""));         // Deletes # character
         this.pokemonName = listIn.get(1);
         this.primaryType = new Type(true, listIn.get(2));
         this.secondaryType = new Type(false, listIn.get(3));
@@ -71,14 +93,9 @@ public class Pokemon
 
         this.agility = new Attribute(Integer.parseInt(listIn.get(6)), 0);
         this.smarts = new Attribute(Integer.parseInt(listIn.get(7)), 0);
-        this.strength = new Attribute(Integer.parseInt(listIn.get(8)), 0);
+        this.strength = new Attribute(Integer.parseInt(listIn.get(8)), this.strong.get() - this.weak.get() + (2 * this.large.get()));
         this.spirit = new Attribute(Integer.parseInt(listIn.get(9)), 0);
         this.vigor = new Attribute(Integer.parseInt(listIn.get(10)), 0);
-
-        this.weak = new PhysicalAttribute(convertIntToBool(Integer.parseInt(listIn.get(11))));
-        this.strong = new PhysicalAttribute(convertIntToBool(Integer.parseInt(listIn.get(12))));
-        this.small = new PhysicalAttribute(convertIntToBool(Integer.parseInt(listIn.get(13))));
-        this.large = new PhysicalAttribute(convertIntToBool(Integer.parseInt(listIn.get(14))));
 
         this.intimidation = new Skill(Integer.parseInt(listIn.get(18)), 0);
         this.notice = new Skill(Integer.parseInt(listIn.get(19)), 0);
@@ -92,16 +109,6 @@ public class Pokemon
         this.taunting = new Skill(Integer.parseInt(listIn.get(27)), 0);
         this.tracking = new Skill(Integer.parseInt(listIn.get(28)), 0);
         this.charm = new Skill(Integer.parseInt(listIn.get(29)), 0);
-
-        for (int i=0; i<4; i++)
-        {
-            this.edges.add(listIn.get(30+i));
-        }
-
-        for (int j=0; j<2; j++)
-        {
-            this.hindrances.add(listIn.get(34+j));
-        }
 
         this.inArctic = new Location(convertIntToBool(Integer.parseInt(listIn.get(36))));
         this.inCaves = new Location(convertIntToBool(Integer.parseInt(listIn.get(37))));
@@ -117,7 +124,7 @@ public class Pokemon
         this.rareness = Integer.parseInt(listIn.get(46));
         this.maxGroupSize = Integer.parseInt(listIn.get(47));
         this.aggro = Integer.parseInt(listIn.get(48));
-        //this.pokemonFamily = listIn.get(49);
+        this.pokemonFamily = listIn.get(49);
 
         calculateCPT();
     }
@@ -125,6 +132,29 @@ public class Pokemon
     private void calculateCPT()
     {
         //calculate charisma, parry, toughness here
+        // charisma = +2 if cute or majestic, -2 if ugly
+        // parry = (fighting / 2) + 2
+        // toughness = (vigor / 2) + 2
+        //      + 2 if hard
+        //      + 4 if rock hard
+        //      + large amount
+        //      - small amount
+        this.toughness.setDice((this.vigor.getDice() / 2) + 2 + this.large.get() - this.small.get());
+        this.parry.setDice((this.fighting.getDice() / 2) + 2);
+
+        if (this.edges.contains("Cute") || this.edges.contains("Majestic"))
+        {   this.charisma.setDice(this.charisma.getDice() + 2);
+        }
+        if (this.hindrances.contains("Ugly"))
+        {   this.charisma.setDice(this.charisma.getDice() - 2);
+        }
+
+        if (this.edges.contains("Hard"))
+        {   this.toughness.setDice(this.toughness.getDice() + 2);
+        }
+        if (this.edges.contains("Rock Hard"))
+        {   this.toughness.setDice(this.toughness.getDice() + 4);
+        }
     }
 
     private Boolean convertIntToBool(Integer intIn)
@@ -255,21 +285,21 @@ public class Pokemon
 
     public class PhysicalAttribute
     {
-        private Boolean isSet;
+        private Integer degree;
 
-        public PhysicalAttribute(Boolean boolIn)
+        public PhysicalAttribute(Integer intIn)
         {
-            isSet = boolIn;
+            degree = intIn;
         }
 
-        public void set(Boolean boolIn)
+        public void set(Integer intIn)
         {
-            isSet = boolIn;
+            degree = intIn;
         }
 
-        public Boolean isSet()
+        public Integer get()
         {
-            return this.isSet;
+            return this.degree;
         }
     }
 

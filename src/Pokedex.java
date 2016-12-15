@@ -55,10 +55,11 @@ public class Pokedex extends ArrayList<Pokemon>
             statsArray.add(stringArray[i]);
         }
         Pokemon newPokemon = new Pokemon(statsArray);
-        System.out.println(newPokemon.getPokedexNumber() + " " + newPokemon.getName());
+        //System.out.println(newPokemon.getPokedexNumber() + " " + newPokemon.getName());
         return newPokemon;
     }
 
+    // Returns list of all Pokemon names.
     public String[] getPokemon()
     {
         ArrayList<String> allPokemon = new ArrayList<String>(this.size());
@@ -66,7 +67,8 @@ public class Pokedex extends ArrayList<Pokemon>
         {
             allPokemon.add(this.get(i).getName());
         }
-        return allPokemon.toArray();
+        String[] returnArray = allPokemon.toArray(new String[this.size()]);
+        return returnArray;
     }
 
 
@@ -77,7 +79,12 @@ public class Pokedex extends ArrayList<Pokemon>
     public static void main(String[] args)
     {
         Pokedex test = new Pokedex();
-        //System.out.println(test.get(0).getName());
+        ArrayList<String> pokemonList = new ArrayList<String>(Arrays.asList(test.getPokemon()));
+        for (int i=0; i<pokemonList.size(); i++)
+        {
+            Integer number = i+1;
+            System.out.println(number + " " + pokemonList.get(i));
+        }
     }
 
 }
