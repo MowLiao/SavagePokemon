@@ -9,82 +9,87 @@ Program in evasion stat, for each 2 sizes, -1 evasion
 
 public class Pokemon
 {    
-    private String workingdir = System.getProperty("user.dir");
+    public Integer evasionPenalty = 0;
+    public Integer ndex;
+    public String pokemonName;
+    public Type primaryType;
+    public Type secondaryType;
+    public Integer evolutionaryStage;
+    public Location inArctic;
+    public Location inCaves;
+    public Location inDesert;
+    public Location inFreshWater;
+    public Location inMountains;
+    public Location inSea;
+    public Location inPlains;
+    public Location inUrban;
+    public Location inVolcanic;
+    public Location inWoods;
+    public Integer rareness;
+    public Integer maxGroupSize;
+    public Integer aggro;
+    public String pokemonFamily;
 
-    private Integer ndex;
-    private String pokemonName;
-    private Type primaryType;
-    private Type secondaryType;
-    private Integer evolutionaryStage;
-    private Integer pace;
-    private Attribute agility;
-    private Attribute smarts;
-    private Attribute strength;
-    private Attribute spirit;
-    private Attribute vigor;
-    private PhysicalAttribute weak;
-    private PhysicalAttribute strong;
-    private PhysicalAttribute small;
-    private PhysicalAttribute large;
-    private Attribute charisma;                    // calculated
-    private Attribute parry;                       // calculated 
-    private Attribute toughness;                   // calculated
-    private Skill intimidation;
-    private Skill notice;
-    private Skill stealth;
-    private Skill survival;
-    private Skill swimming;
-    private Skill fighting;
-    private Skill spAttack;
-    private Skill climbing;
-    private Skill healing;
-    private Skill taunting;
-    private Skill tracking;
-    private Skill charm;
-    private ArrayList<String> edges = new ArrayList<String>(4);     // armed, aquatic, burrowing, cute, 
+    public Integer pace;
+    public Attribute agility;
+    public Attribute smarts;
+    public Attribute strength;
+    public Attribute spirit;
+    public Attribute vigor;
+    public Attribute running;
+    public PhysicalAttribute weak;
+    public PhysicalAttribute strong;
+    public PhysicalAttribute small;
+    public PhysicalAttribute large;
+    public Attribute charisma;                    // calculated
+    public Attribute parry;                       // calculated 
+    public Attribute toughness;                   // calculated
+    public Skill intimidation;
+    public Skill notice;
+    public Skill stealth;
+    public Skill survival;
+    public Skill swimming;
+    public Skill fighting;
+    public Skill spAttack;
+    public Skill climbing;
+    public Skill healing;
+    public Skill taunting;
+    public Skill tracking;
+    public Skill charm;
+    public ArrayList<String> edges = new ArrayList<String>(4);     // armed, aquatic, burrowing, cute, 
                                                                     // double attack, flight, hard 
-                                                                    // majestic, reach, roch hard, 
+                                                                    // majestic, reach, rock hard, 
                                                                     //speedy flight, teleporation, transforms
-    private ArrayList<String> hindrances = new ArrayList<String>(2);       // always aquatic, rage, ugly
-    private Location inArctic;
-    private Location inCaves;
-    private Location inDesert;
-    private Location inFreshWater;
-    private Location inMountains;
-    private Location inSea;
-    private Location inPlains;
-    private Location inUrban;
-    private Location inVolcanic;
-    private Location inWoods;
-    private Integer rareness;
-    private Integer maxGroupSize;
-    private Integer aggro;
-    private String pokemonFamily;
+    public ArrayList<String> hindrances = new ArrayList<String>(2);       // always aquatic, rage, ugly
+
+    private String workingdir = System.getProperty("user.dir");
+    private ArrayList<Skill> skillList = new ArrayList<Skill>(12);
 
     public Pokemon(ArrayList<String> pokemonStats)
     {
         create(pokemonStats);
     }
 
+    private Boolean convertIntToBool(Integer intIn)
+    {
+        if (intIn == 1)
+        {   return true;
+        }
+        else
+        {   return false;
+        }
+    }
+
     public void create(ArrayList<String> listIn)
     {
-        this.charisma.setDice(0);
-        for (int i=0; i<4; i++)
-        {
-            this.edges.add(listIn.get(30+i));
-        }
-
-        for (int j=0; j<2; j++)
-        {
-            this.hindrances.add(listIn.get(34+j));
-        }
 
         this.weak = new PhysicalAttribute(Integer.parseInt(listIn.get(11)));
         this.strong = new PhysicalAttribute(Integer.parseInt(listIn.get(12)));
         this.small = new PhysicalAttribute(Integer.parseInt(listIn.get(13)));
         this.large = new PhysicalAttribute(Integer.parseInt(listIn.get(14)));
-
-        this.ndex = Integer.parseInt(listIn.get(0).substring(1).replaceFirst("^0+(?!$)", ""));         // Deletes # character
+        
+        // Assigns numer of pokemon, removing # character
+        this.ndex = Integer.parseInt(listIn.get(0).substring(1).replaceFirst("^0+(?!$)", ""));         
         this.pokemonName = listIn.get(1);
         this.primaryType = new Type(true, listIn.get(2));
         this.secondaryType = new Type(false, listIn.get(3));
@@ -93,22 +98,29 @@ public class Pokemon
 
         this.agility = new Attribute(Integer.parseInt(listIn.get(6)), 0);
         this.smarts = new Attribute(Integer.parseInt(listIn.get(7)), 0);
-        this.strength = new Attribute(Integer.parseInt(listIn.get(8)), this.strong.get() - this.weak.get() + (2 * this.large.get()));
         this.spirit = new Attribute(Integer.parseInt(listIn.get(9)), 0);
         this.vigor = new Attribute(Integer.parseInt(listIn.get(10)), 0);
 
-        this.intimidation = new Skill(Integer.parseInt(listIn.get(18)), 0);
-        this.notice = new Skill(Integer.parseInt(listIn.get(19)), 0);
-        this.stealth = new Skill(Integer.parseInt(listIn.get(20)), 0);
-        this.survival = new Skill(Integer.parseInt(listIn.get(21)), 0);
-        this.swimming = new Skill(Integer.parseInt(listIn.get(22)), 0);
-        this.fighting = new Skill(Integer.parseInt(listIn.get(23)), 0);
-        this.spAttack = new Skill(Integer.parseInt(listIn.get(24)), 0);
-        this.climbing = new Skill(Integer.parseInt(listIn.get(25)), 0);
-        this.healing = new Skill(Integer.parseInt(listIn.get(26)), 0);
-        this.taunting = new Skill(Integer.parseInt(listIn.get(27)), 0);
-        this.tracking = new Skill(Integer.parseInt(listIn.get(28)), 0);
-        this.charm = new Skill(Integer.parseInt(listIn.get(29)), 0);
+        this.intimidation = new Skill(Integer.parseInt(listIn.get(18)));
+        this.notice = new Skill(Integer.parseInt(listIn.get(19)));
+        this.stealth = new Skill(Integer.parseInt(listIn.get(20)));
+        this.survival = new Skill(Integer.parseInt(listIn.get(21)));
+        this.swimming = new Skill(Integer.parseInt(listIn.get(22)));
+        this.fighting = new Skill(Integer.parseInt(listIn.get(23)));
+        this.spAttack = new Skill(Integer.parseInt(listIn.get(24)));
+        this.climbing = new Skill(Integer.parseInt(listIn.get(25)));
+        this.healing = new Skill(Integer.parseInt(listIn.get(26)));
+        this.taunting = new Skill(Integer.parseInt(listIn.get(27)));
+        this.tracking = new Skill(Integer.parseInt(listIn.get(28)));
+        this.charm = new Skill(Integer.parseInt(listIn.get(29)));
+
+        for (int i=0; i<4; i++)
+        {   this.edges.add(listIn.get(30+i));
+        }
+
+        for (int j=0; j<2; j++)
+        {   this.hindrances.add(listIn.get(34+j));
+        }
 
         this.inArctic = new Location(convertIntToBool(Integer.parseInt(listIn.get(36))));
         this.inCaves = new Location(convertIntToBool(Integer.parseInt(listIn.get(37))));
@@ -126,10 +138,27 @@ public class Pokemon
         this.aggro = Integer.parseInt(listIn.get(48));
         this.pokemonFamily = listIn.get(49);
 
-        calculateCPT();
+        // Includes calculated modifier.
+        this.strength = new Attribute(Integer.parseInt(listIn.get(8)), this.strong.get() + this.large.get() - this.weak.get());
+
+        this.skillList.add(this.intimidation);
+        this.skillList.add(this.notice);
+        this.skillList.add(this.stealth);
+        this.skillList.add(this.survival);
+        this.skillList.add(this.swimming);
+        this.skillList.add(this.fighting);
+        this.skillList.add(this.spAttack);
+        this.skillList.add(this.climbing);
+        this.skillList.add(this.healing);
+        this.skillList.add(this.taunting);
+        this.skillList.add(this.tracking);
+        this.skillList.add(this.charm);
+
+        calculateOthers();
+        randomiseSkills();
     }
 
-    private void calculateCPT()
+    private void calculateOthers()
     {
         //calculate charisma, parry, toughness here
         // charisma = +2 if cute or majestic, -2 if ugly
@@ -139,8 +168,11 @@ public class Pokemon
         //      + 4 if rock hard
         //      + large amount
         //      - small amount
-        this.toughness.setDice((this.vigor.getDice() / 2) + 2 + this.large.get() - this.small.get());
-        this.parry.setDice((this.fighting.getDice() / 2) + 2);
+
+        this.toughness = new Attribute((this.vigor.getDice() / 2) + 2 + this.large.get() - this.small.get(), 0);
+        this.parry = new Attribute((this.fighting.getDice() / 2) + 2, 0);
+        this.charisma = new Attribute(0,0);
+        this.running = new Attribute(0,0);
 
         if (this.edges.contains("Cute") || this.edges.contains("Majestic"))
         {   this.charisma.setDice(this.charisma.getDice() + 2);
@@ -155,20 +187,63 @@ public class Pokemon
         if (this.edges.contains("Rock Hard"))
         {   this.toughness.setDice(this.toughness.getDice() + 4);
         }
-    }
-
-    private Boolean convertIntToBool(Integer intIn)
-    {
-        if (intIn == 1)
+        
+        if (this.large.get().equals(4))
         {
-            return true;
+            this.evasionPenalty += 2;
+        }
+        if (this.small.get().equals(2))
+        {
+            this.evasionPenalty -= 2;
+        }
+
+        if (this.pace < 12)
+        {   if (this.pace < 10)
+            {   if (this.pace < 8)
+                {   if (this.pace < 6)
+                    {   this.running.setDice(4);
+                    }
+                    else
+                    {   this.running.setDice(6);
+                    }
+                }
+                else
+                {   this.running.setDice(8);
+                }
+            }
+            else
+            {   this.running.setDice(10);
+            }
         }
         else
-        {
-            return false;
+        {    this.running.setDice(12);
+        }
+    }    
+
+    private Boolean rng(Integer max, Integer threshold)
+    {
+        Random rand = new Random();
+        int n = rand.nextInt(max);
+        if (n <= threshold)
+        {   return true;
+        }
+        else
+        {   return false;
         }
     }
 
+    private void randomiseSkills()
+    {
+        Integer currentDice = 0;
+        for (int i=0; i<this.skillList.size(); i++)
+        {
+            currentDice = skillList.get(i).getDice();
+            if (rng(100,10) && (currentDice > 0))
+            {   skillList.get(i).setDice(currentDice + 2);
+            }
+
+        }
+    }
 
     /****************************************
         GETTERS
@@ -264,22 +339,22 @@ public class Pokemon
 
         public Integer getDice()
         {
-            return this.diceNumber;
+            return diceNumber;
         }
 
         public Integer getModifier()
         {
-            return this.modifier;
+            return modifier;
         }
 
         public void setDice(Integer diceIn)
         {
-            this.diceNumber = diceIn;
+            diceNumber = diceIn;
         }
 
         public void setModifier(Integer modifierIn)
         {
-            this.modifier = modifierIn;
+            modifier = modifierIn;
         }
     }
 
@@ -308,10 +383,9 @@ public class Pokemon
         private Integer diceNumber = 0;
         private Integer modifier = 0;
 
-        public Skill(Integer diceIn, Integer modifierIn)
+        public Skill(Integer diceIn)
         {
             diceNumber = diceIn;
-            modifier = modifierIn;
         }
 
         public Integer getDice()
@@ -319,19 +393,9 @@ public class Pokemon
             return this.diceNumber;
         }
 
-        public Integer getModifier()
-        {
-            return this.modifier;
-        }
-
         public void setDice(Integer diceIn)
         {
             this.diceNumber = diceIn;
-        }
-
-        public void setModifier(Integer modifierIn)
-        {
-            this.modifier = modifierIn;
         }
     }
 
