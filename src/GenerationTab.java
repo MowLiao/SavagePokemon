@@ -1,5 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
+import java.util.ArrayList;
 
 import static config.*;
 
@@ -9,8 +10,6 @@ public class GenerationTab extends JPanel
     private String[] pokedexList = null;
     private ArrayList<Pokemon> generatedPokemonList = new ArrayList<Pokemon>();
     private ArrayList<JList> specialSkillsList = new ArrayList<JList>();
-    private ArrayList<JList> specialSkillsList = new ArrayList<JList>();
-    private ArrayList<Integer> 
 
     private JScrollPane generatedPokemonListView;
     private DefaultListModel<String> generatedPokemonListModel;

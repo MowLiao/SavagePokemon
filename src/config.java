@@ -1,6 +1,8 @@
-public final class AppConstants
+//import.java.util.*;
+
+public final class Config
 {
-    public static final String[] REGIONLIST = { 'Arctic', 
+    public static final String[] REGIONLIST = Arrays.asList('Arctic', 
                                                 'Caves', 
                                                 'Desert', 
                                                 'Fresh Water', 
@@ -9,7 +11,7 @@ public final class AppConstants
                                                 'Plains', 
                                                 'Urban', 
                                                 'Volcanic', 
-                                                'Woods'};
+                                                'Woods');
 }
 
 
