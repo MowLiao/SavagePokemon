@@ -18,12 +18,29 @@ public class GenerationTab extends JPanel
 
     private JLabel type1;
     private JLabel type2;
-    private JLabel charisma;
-    private JLabel parry;
-    private JLabel toughness;
+    private JLabel evStage;
     private JLabel pace;
-    private JLabel fighting;
-    private JLabel specialAttack;
+    private JLabel agility;
+    private JLabel smarts;
+    private JLabel spirit;
+    private JLabel strength;
+    private JLabel vigor;
+
+    // Divide skill section into "general", "fighting", "special", shown as tabs
+    private String[] genSkillTableColumns = {"Skill", "Die"};
+    private Object[][] genSkillTableData = {
+                                            {"Charm"},
+                                            {"Climbing"},
+                                            {"Healing"},
+                                            {"Intimidation"},
+                                            {},
+                                            {},
+                                            {},
+                                            {},
+                                            {},
+                                            {},
+                                            {}
+                                        }
 
     private JButton generateButton;
     private JButton clearAllGenerated;
