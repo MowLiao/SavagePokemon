@@ -154,19 +154,19 @@ public class GenerationTab extends JPanel
         this.selectPokemonCheck = new JCheckBox();
         this.herdSpawningCheck = new JCheckBox("Herd Spawning");
 
-        this.pokemonName = new JLabel();
-        this.type1 = new JLabel();
-        this.type2 = new JLabel();
-        this.charismaNum = new JLabel();
-        this.paceNum = new JLabel();
-        this.parryNum = new JLabel();
-        this.toughnessNum = new JLabel();
-        this.evaPenaltyNum = new JLabel();
-        this.evoStageNum = new JLabel();
+        this.pokemonName = new JLabel("Pokemon Name");
+        this.type1 = new JLabel("type 1");
+        this.type2 = new JLabel("type 2");
+        this.charismaNum = new JLabel("chr");
+        this.paceNum = new JLabel("pce");
+        this.parryNum = new JLabel("par");
+        this.toughnessNum = new JLabel("tgh");
+        this.evaPenaltyNum = new JLabel("eva");
+        this.evoStageNum = new JLabel("evo");
 
-        this.edgesText = new JTextArea();
-        this.hindrancesText = new JTextArea();
-        this.notesText = new JTextArea();
+        this.edgesText = new JTextArea("Edges:");
+        this.hindrancesText = new JTextArea("Hindrances:");
+        this.notesText = new JTextArea("Notes go here...");
 
         this.woundsSpinner = new JSpinner(new SpinnerNumberModel(0,0,3,1));
         this.fatigueSpinner = new JSpinner(new SpinnerNumberModel(0,0,2,1));
@@ -189,9 +189,7 @@ public class GenerationTab extends JPanel
         generationButtonBox.add(this.clearSelectedGenerated);
         generationButtonBox.add(this.clearAllGenerated);
 
-        Box generationBox = new Box(BoxLayout.PAGE_AXIS);
-        generationBox.add(generationButtonBox);
-        generationBox.add(this.movesButton);
+        this.generatedPokemonListView = new JScrollPane();
 
         Box generateButtonRegionBox = new Box(BoxLayout.LINE_AXIS);
         generateButtonRegionBox.add(this.regionCombo);
@@ -228,20 +226,50 @@ public class GenerationTab extends JPanel
         this.skillAttrTabbedPane.addTab("Fighting",this.attrSkillTables.get(2));
         this.skillAttrTabbedPane.addTab("Special",this.attrSkillTables.get(3));
 
-        Box saEdgeHindBox = new Box(BoxLayout.LINE_AXIS);
         Box edgeHindBox = new Box(BoxLayout.PAGE_AXIS);
-        Box miscBox = new Box(BoxLayout.LINE_AXIS);
+        edgeHindBox.add(this.edgesText);
+        edgeHindBox.add(this.hindrancesText);
+
+        Box saEdgeHindBox = new Box(BoxLayout.LINE_AXIS);
+        saEdgeHindBox.add(this.skillAttrTabbedPane);
+        saEdgeHindBox.add(edgeHindBox);
+
         Box woundsBox = new Box(BoxLayout.PAGE_AXIS);
+        woundsBox.add(new JLabel("Wounds"));
+        woundsBox.add(this.woundsSpinner);
+
         Box fatigueBox = new Box(BoxLayout.PAGE_AXIS);
+        fatigueBox.add(new JLabel("Fatigue"));
+        fatigueBox.add(this.fatigueSpinner);
+
+        Box miscBox = new Box(BoxLayout.LINE_AXIS);
+        miscBox.add(this.notesText);
+        miscBox.add(woundsBox);
+        miscBox.add(fatigueBox);
+
+        Box generationBox = new Box(BoxLayout.PAGE_AXIS);
+        generationBox.add(generationButtonBox);
+        generationBox.add(this.generatedPokemonListView);
+        generationBox.add(this.movesButton);
 
         Box detailsBox = new Box(BoxLayout.PAGE_AXIS);
+        detailsBox.add(generateBox);
+        detailsBox.add(nameTypeBox);
+        detailsBox.add(statsBox);
+        detailsBox.add(saEdgeHindBox);
+        detailsBox.add(miscBox);
 
-        BoxLayout mainLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
+        BoxLayout mainLayout = new BoxLayout(this, BoxLayout.LINE_AXIS);
         this.setLayout(mainLayout);
+
+        this.add(generationBox);
+        this.add(detailsBox);
 
 
         this.genSkills = new JScrollPane();
         this.fgtSkills = new JScrollPane();
         this.spSkills = new JScrollPane();
     }
+
+
 }
