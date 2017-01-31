@@ -2,14 +2,12 @@ import java.io.*;
 import java.util.*;
 
 /*
-Todo:
-Program in evasion stat, for each 2 sizes, -1 evasion
-
+   Todo:
+   
 */
 
 public class Pokemon
 {    
-    public Integer evasionPenalty = 0;
     public Integer ndex;
     public String pokemonName;
     public Type primaryType;
@@ -31,12 +29,13 @@ public class Pokemon
     public String pokemonFamily;
 
     public Integer pace;
+    public Integer evasionPenalty = 0;            // calculated
     public Attribute agility;
     public Attribute smarts;
     public Attribute strength;
     public Attribute spirit;
     public Attribute vigor;
-    public Attribute running;
+    public Attribute running;                     // calculated
     public PhysicalAttribute weak;
     public PhysicalAttribute strong;
     public PhysicalAttribute small;
@@ -174,6 +173,7 @@ public class Pokemon
         this.charisma = new Attribute(0,0);
         this.running = new Attribute(0,0);
 
+        // Calculate charisma
         if (this.edges.contains("Cute") || this.edges.contains("Majestic"))
         {   this.charisma.setDice(this.charisma.getDice() + 2);
         }
@@ -181,6 +181,7 @@ public class Pokemon
         {   this.charisma.setDice(this.charisma.getDice() - 2);
         }
 
+        // Calculate toughness
         if (this.edges.contains("Hard"))
         {   this.toughness.setDice(this.toughness.getDice() + 2);
         }
@@ -188,6 +189,7 @@ public class Pokemon
         {   this.toughness.setDice(this.toughness.getDice() + 4);
         }
         
+        // Calculate evasionPenalty
         if (this.large.get().equals(4))
         {
             this.evasionPenalty += 2;
@@ -197,6 +199,7 @@ public class Pokemon
             this.evasionPenalty -= 2;
         }
 
+        // Calculate running
         if (this.pace < 12)
         {   if (this.pace < 10)
             {   if (this.pace < 8)
@@ -381,7 +384,6 @@ public class Pokemon
     public class Skill
     {
         private Integer diceNumber = 0;
-        private Integer modifier = 0;
 
         public Skill(Integer diceIn)
         {
